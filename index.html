@@ -1,0 +1,539 @@
+<!doctype html>
+<html>
+  <head>
+    <base href="http://127.0.0.1:8001/">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <!-- Load polyfills. Same as 2.x, except for the path -->
+    <!-- <script
+        src="node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js">
+    </script> -->
+
+    <!-- Import the my-resume element's module. -->
+    <!-- <script type="module" src="js/my-resume.js"></script> -->
+    <script>
+      window.Polymer = {rootPath: '/'};
+    </script>
+
+    <!-- Load webcomponents-loader.js to check and load any polyfills your browser needs -->
+    <script src="bower_components/webcomponentsjs/webcomponents-loader.js"></script>
+    <link rel="import" href="bower_components/polymer/polymer.html">
+    <link rel="import" href="bower_components/iron-icons/iron-icons.html">
+    <link rel="import" href="bower_components/iron-icons/maps-icons.html">
+    <link rel="import" href="bower_components/iron-icons/communication-icons.html">
+    <link rel="import" href="bower_components/iron-icon/iron-icon.html">
+    
+    <link rel="import" href="bower_components/salte-rating/salte-rating.html">
+    <!-- <link rel="import" href="../r3sume-element.html"> -->
+
+  </head>
+  <style>
+    body {
+      --primary-text-color: rgba(200,200,200,.9);
+      --primary-background-color: #282E3A;
+    }
+
+    .main-content {
+      display: flex;
+      width: 100%;
+      min-height: 80vh;
+    }
+
+    .side-content {
+      /*width: 33.3%;
+      height: 100%;*/
+
+
+      flex-grow: 1;
+      flex-basis: 33.3%;
+      padding: 0 16px;
+      /*background-color: #282E3A;*/
+      background-color: var(--primary-background-color);
+      color: #797D89;
+    }
+
+    .body-content {
+      /*width: 66.7%;
+      height: 100%;*/
+
+
+      flex-grow: 2;
+      flex-basis: 66.7%;
+      padding: 0 16px;
+      background-color: #f8f8f8;
+    }
+
+    .section-descr ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .section-descr li {
+      margin: 12px 0;
+    }
+
+    .contact-section .section-descr li {
+      margin: 8px 0;
+    }
+
+    .skills-section .section-descr {
+      margin-top: -12px;
+    }
+    
+    .section-descr italic {
+      font-style: italic;
+    }
+
+    .education-item, .work-item, .skill-item, .contact-item {
+      display: flex;
+      width: 100%;
+    }
+
+    .year-item {
+      flex-grow: 1;
+      flex-basis: 25%;
+      padding: 0 8px;
+    }
+
+    .descr-item {
+      flex-grow: 3;
+      flex-basis: 75%;
+      padding: 0 8px;
+      font-size: 14px;
+    }
+
+    .descr-item strong, .descr-item small {
+      text-transform: uppercase;
+    }
+
+    .descr-item strong.company {
+      font-size: 12px;
+    }
+
+
+    .references-item {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      width: 100%;
+    }
+
+    .company-item {
+      flex-grow: 1;
+      padding: 0 8px;
+    }
+
+    .descr2-item {
+      flex-grow: 3;
+      padding: 0 8px;
+    }
+
+    .test {
+      width: 100%;
+      height: 5vh;
+    }
+
+    .contact-item {
+      font-size: 16px;
+      color: var(--primary-text-color);
+    }
+
+    .contact-descr {
+      font-size: 14px;
+      position: relative;
+      top: 4px;
+    }
+
+    .skill-label {
+      margin-left: 8px;
+      position: relative;
+      top: -2px;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    .skill-label-container {
+      border-bottom: 1px dotted;
+    }
+
+    .skill-title {
+      position: relative;
+      top: 4px;
+      padding-left: 8px; 
+      color: var(--primary-text-color);
+      font-size: 14px;
+    }
+
+    .skill-score {
+      position: absolute;
+      right: 67%;
+    }
+
+    salte-rating {
+      --salte-rating-value-color: var(--primary-text-color);
+      --salte-rating-limit-color: #797D89;
+    }
+
+    iron-icon {
+      display: block;
+      width: 48px;
+      height: 48px;
+    }
+
+    .contact-icon {
+      width: 18px;
+      height: 18px;
+    }
+
+    svg.octicon {
+      color: var(--primary-text-color);
+    }
+
+    .follow-section .section-descr {
+      position: relative;
+      top: -8px;
+    }
+
+    .photo-section {
+      text-align: center;
+    }
+
+    .photo-section h3 {
+      font-size: 1.8em;
+      margin: 0;
+      color: var(--primary-text-color);
+    }
+
+    .photo-section .section-descr {
+      color: var(--primary-text-color);
+    }
+
+    .my-photo {
+      opacity: .7;
+      border-radius: 50%;
+      width: 196px;
+      height: 196px;
+      object-fit: cover;
+      object-position: top;
+    }
+
+    .skills-section, .follow-section {
+      margin-top: 24px;
+    }
+  </style>
+  <body>
+    <div class="main-content">
+      <div class="side-content">&nbsp;
+        <div class="photo-section">
+          <img class="my-photo" src="images/me_photo.png"/>
+          <div class="section-title"><h3>Suwandi Tanuwijaya</h3></div>
+          <div class="section-descr">
+            <strong>Full-Stack &amp; Lead Developer</strong>
+          </div>
+        </div>
+
+        <div class="contact-section">
+          <div class="section-title"><h3>Contact</h3></div>
+          <div class="section-descr">
+            <ul>
+              <li>
+                <div class="contact-item">
+                  <iron-icon class="contact-icon" icon="communication:location-on"></iron-icon>&nbsp;&nbsp;Kemenangan 8 No 10, Jakarta 11120    
+                </div>
+              </li>
+              <li>
+                <div class="contact-item">
+                  <iron-icon class="contact-icon" icon="communication:phone"></iron-icon>&nbsp;&nbsp;+62 896-3654-8089
+                </div>
+              </li>
+              <li>
+                <div class="contact-item">
+                  <iron-icon class="contact-icon" icon="communication:email"></iron-icon>&nbsp;&nbsp;swndtan@gmail.com
+                </div>
+              </li>
+              <li>
+                <div class="contact-item">
+                  <iron-icon class="contact-icon" icon="perm-contact-calendar"></iron-icon>&nbsp;&nbsp;Single
+                </div>
+              </li>
+              <li>
+                <div class="contact-item">
+                  <iron-icon class="contact-icon" icon="account-balance"></iron-icon>&nbsp;&nbsp;Christian
+                </div>
+              </li>
+              <li>
+                <div class="contact-item">
+                  <iron-icon class="contact-icon" icon="account-box"></iron-icon>&nbsp;&nbsp;Indonesian
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="skills-section">
+          <div class="section-title"><h3>Skills</h3></div>
+          <div class="section-descr">
+            <div class="skill-label-container">
+              <label class="skill-label">Professional Skill</label>
+            </div>
+            <ul>
+              <li>
+                <div class="skill-item">
+                  <div class="skill-title">PHP:</div>
+                  <div class="skill-score"><salte-rating icon="add-box" value="8.80" limit="10"></salte-rating></div>
+                </div>           
+              </li>
+
+              <li>
+                <div class="skill-item">
+                  <div class="skill-title">Javascript:</div>
+                  <div class="skill-score"><salte-rating icon="add-box" value="7.80" limit="10"></salte-rating></div>
+                </div>
+              </li>
+
+              <li>
+                <div class="skill-item">
+                  <div class="skill-title">HTML5/CSS:</div>
+                  <div class="skill-score"><salte-rating icon="add-box" value="7.80" limit="10"></salte-rating></div>
+                </div>
+              </li>
+
+              <li>
+                <div class="skill-item">
+                  <div class="skill-title">SQL:</div>
+                  <div class="skill-score"><salte-rating icon="add-box" value="8.80" limit="10"></salte-rating></div>
+                </div>
+              </li>
+              <li>
+                <div class="skill-item">
+                  <div class="skill-title">Cordova:</div>
+                  <div class="skill-score"><salte-rating icon="add-box" value="7.80" limit="10"></salte-rating></div>
+                </div>
+              </li>
+            </ul>
+
+            <div class="skill-label-container">
+              <label class="skill-label">Personal Skill</label>
+            </div>
+            <ul>
+              <li>
+                <div class="skill-item">
+                  <div class="skill-title">Communication:</div>
+                  <div class="skill-score"><salte-rating icon="add-box" value="6.80" limit="10"></salte-rating></div>
+                </div>           
+              </li>
+
+              <li>
+                <div class="skill-item">
+                  <div class="skill-title">Teamwork:</div>
+                  <div class="skill-score"><salte-rating icon="add-box" value="8.80" limit="10"></salte-rating></div>
+                </div>
+              </li>
+
+              <li>
+                <div class="skill-item">
+                  <div class="skill-title">Creativity:</div>
+                  <div class="skill-score"><salte-rating icon="add-box" value="8.80" limit="10"></salte-rating></div>
+                </div>
+              </li>
+
+              <li>
+                <div class="skill-item">
+                  <div class="skill-title">Leadership:</div>
+                  <div class="skill-score"><salte-rating icon="add-box" value="7.80" limit="10"></salte-rating></div>
+                </div>
+              </li>
+              <li>
+                <div class="skill-item">
+                  <div class="skill-title">Management:</div>
+                  <div class="skill-score"><salte-rating icon="add-box" value="6.80" limit="10"></salte-rating></div>
+                </div>
+              </li>
+              
+            </ul>
+          </div>
+        </div>
+
+        <div class="follow-section">
+          <div class="section-title"><h3>Repository</h3></div>
+          <div class="section-descr">
+            <ul>
+              <li>
+                <div class="contact-item">
+                  <svg aria-hidden="true" class="octicon octicon-mark-github" height="24" version="1.1" viewBox="0 0 16 16" width="32"><path fill-rule="evenodd" fill="rgba(200,200,200,.9)" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></svg>&nbsp;&nbsp;
+                  <div class="contact-descr">Github: https://github.com/suwanditan</div> 
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>        
+
+      </div>
+      <div class="body-content">&nbsp;
+        <div class="profile-section">
+          <div class="section-title"><h3>Profile</h3></div>
+          <div class="section-descr">Over 13 years personal experience working within this industry, I believe I will be your valuable human-resource in your company. As a lead and full-stack developer, I am comfortable guiding team, working with back-end and front-end technology stacks</div>
+        </div>
+        <div class="work-section">
+        <div class="section-title"><h3>Work Experiences</h3></div>
+          <div class="section-descr">
+            <ul>
+              <li>
+                <div class="work-item">
+                  <div class="year-item">2016 &mdash; 2017<br>
+                    <small><italic>(1 year)</italic></small>
+                  </div>
+                  <div class="descr-item">
+                    <strong>Lead Developer</strong><br>
+                    <strong class="company">PT Karta Indonesia Global</strong><br>
+                    <ul>
+                      <li>Developed cloud-infrastructure, client web-app, and its client mobile system for an advertising-startup company</li>
+                    </ul>
+                  </div>
+                </div>
+              </li>
+
+              <li>
+                <div class="work-item">
+                  <div class="year-item">2012 &mdash; 2016<br>
+                    <small><italic>(4 years)</italic></small>
+                  </div>
+                  <div class="descr-item">
+                    <strong>Head of Product Development</strong><br>
+                    <strong class="company">PT Mimotek Indonesia</strong><br>
+                    <ul>
+                      <li>Developed web-app pallet labeling for a soft-drink manufacturing company, to manage and track its valuable-pallet asset</li>
+                      <li>Developed web-app sales monitoring system for a manufacturing company</li>
+                      <li>Developed web-app insurance system with mobile-app to offer services through mobile access</li>
+                      <li>Developed web-app sales monitoring system with mobile-app to track salesperson perfomance</li>
+                    </ul>
+                  </div>
+                </div>
+              </li>
+
+              <li>
+                <div class="work-item">
+                  <div class="year-item">2011 &mdash; 2012<br>
+                    <small><italic>(1 year)</italic></small>
+                  </div>
+                  <div class="descr-item">
+                    <strong>Freelance Developer</strong><br>
+                    <strong class="company">Self-Employed</strong><br>
+                    <ul>
+                      <li>Mostly maintained existing system of manufacturing, trading, garment and textile company</li>
+                    </ul>
+                  </div>
+                </div>
+              </li>
+
+              <li>
+                <div class="work-item">
+                  <div class="year-item">2005 &mdash; 2010<br>
+                    <small><italic>(5 years)</italic></small>
+                  </div>
+                  <div class="descr-item">
+                    <strong>Software Developer</strong><br>
+                    <strong class="company">PT Gokharu Microsystems</strong><br>
+                    <ul>
+                      <li>Developed system (sales and manufacturing system) for a steel manufacturing company</li>
+                      <li>Developed system (point of sales with its headquarter system) for a retail company</li>
+                      <li>Developed system (real-estate system) for a property company</li>
+                      <li>Developed add-ons (general ledger system) for a trading company</li>
+                      <li>Developed add-ons (tax system, sales and inventory report) for a textile manufacturing company</li>
+                    </ul>
+                  </div>
+                </div>
+              </li>
+
+              <li>
+                <div class="work-item">
+                  <div class="year-item">2004 &mdash; 2005<br>
+                    <small><italic>(1 year)</italic></small>
+                  </div>
+                  <div class="descr-item">
+                    <strong>Junior Consultant</strong><br>
+                    <strong class="company">Prime Consulting Technologies</strong><br>
+                    <ul>
+                      <li>Developed desktop-app for a shoes manufacturing company</li>
+                    </ul>
+                  </div>
+                </div>
+              </li>
+
+              <li>
+                <div class="work-item">
+                  <div class="year-item">2004 &mdash; 2004</div>
+                  <div class="descr-item">
+                    <strong>Freelance Programmer</strong><br>
+                    <strong class="company">Byte Software</strong><br>
+                    <ul>
+                      <li>Developed desktop-app for a multi-level-marketing company</li>
+                    </ul>
+                  </div>
+                </div>
+              </li>
+            </ul>
+
+          </div>
+        </div>
+        <div class="education-section">
+          <div class="section-title"><h3>Education</h3></div>
+          <div class="section-descr">
+            <ul>
+              <li>
+                <div class="education-item">
+                  <div class="year-item">May 2003</div>
+                  <div class="descr-item">
+                    <strong>Statistic and Information Technology</strong><br>
+                    <small>Bina Nusantara University</small>
+                  </div>
+                </div>
+              </li>
+
+              <li>
+                <div class="education-item">
+                  <div class="year-item">Jun 1999</div>
+                  <div class="descr-item">
+                    <strong>SMUK Ricci I</strong><br>
+                    <small>&nbsp;</small>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="references-section">
+          <div class="section-title"><h3>References</h3></div>
+          <div class="section-descr">
+            <ul>
+              <li>
+                <div class="references-item">
+                  <div class="company-item">Andrew T. Setiawan&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                  <div class="descr2-item">
+                    <strong><small>CEO</small> of&nbsp;PT Karta Indonesia Global</strong><br>
+                    <small>Phone: +62 878-8138-1994</small><br>
+                    <small>Email: andrew@karta.id</small>
+
+                  </div>
+                </div>
+              </li>
+
+              <li>
+                <div class="references-item">
+                  <div class="company-item">Michael Wyllie&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                  <div class="descr2-item">
+                    <strong><small>CTO</small> of&nbsp;PT Mimotek Indonesia</strong><br>
+                    <small>Phone: +62 819-0503-0128</small><br>
+                    <small>Email: michael@mimo-tech.com</small>
+
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </body>
+</html>

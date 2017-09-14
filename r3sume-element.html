@@ -1,0 +1,36 @@
+<link rel="import" href="../polymer/polymer-element.html">
+
+<dom-module id="r3sume-element">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <h2>Hello [[prop1]]!</h2>
+  </template>
+
+  <script>
+    /**
+     * `r3sume-element`
+     * My Latest Resume Template
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     */
+    class R3sumeElement extends Polymer.Element {
+      static get is() { return 'r3sume-element'; }
+      static get properties() {
+        return {
+          prop1: {
+            type: String,
+            value: 'r3sume-element'
+          }
+        };
+      }
+    }
+
+    window.customElements.define(R3sumeElement.is, R3sumeElement);
+  </script>
+</dom-module>
